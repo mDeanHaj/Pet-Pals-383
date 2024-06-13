@@ -1,9 +1,11 @@
 SoCalSolutions
 
 Predicting Pet Adoption Likelihood
-Authors: Ben Denis, Mohe Dean Hajjar, Rahim Sarpas, Sandor
-Faya
+
+Authors: Ben Denis, Mohe Dean Hajjar, Rahim Sarpas, Sandor Faya
+
 Introduction
+
 Animal shelters across the globe face a significant challenge in ensuring that the pets
 they care for find permanent, loving homes. Despite the efforts of shelter staff and
 volunteers, many pets remain unadopted for extended periods, which can lead to
