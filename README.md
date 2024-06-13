@@ -8,8 +8,6 @@ Animal shelters across the globe face a significant challenge in ensuring that t
 
 The problem we aim to solve is to develop a predictive model that assesses the likelihood of pets getting adopted from shelters. By analyzing various attributes of the pets, such as species, age, sex, color, and health status, we can identify patterns and factors that significantly impact adoption rates. This model will help shelters optimize their resources and strategies by highlighting which pets are less likely to be adopted and may need additional support or visibility. Furthermore, it can assist in tailoring adoption campaigns, improving matchmaking between pets and potential adopters, and ultimately increasing the adoption rates.
 
-Description of the Source Data Set and Prediction Goal
-
 # Source Data Set
 
 We will use the "Animal Shelter Intakes and Outcomes" dataset, which comprises detailed records of approximately 27,000 animals that have passed through a shelter system. Each entry in the dataset represents an individual animal, providing comprehensive information about its journey through the shelter. The dataset includes information about each animalʼs species, DOB, sex, color, health status, intake date, and outcome.
@@ -35,8 +33,6 @@ The initial steps for data preparation include:
 3. Encoding categorical variables
 4. Creating new features if necessary (e.g., age at intake)
    
-Preliminary Work on Data Exploration and Visualization
-
 # Data Exploration and Visualization
 Some initial data exploration to understand the dataset better:
 
