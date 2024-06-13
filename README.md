@@ -6,82 +6,61 @@ Authors: Ben Denis, Mohe Dean Hajjar, Rahim Sarpas, Sandor Faya
 
 Introduction
 
-Animal shelters across the globe face a significant challenge in ensuring that the pets
-they care for find permanent, loving homes. Despite the efforts of shelter staff and
-volunteers, many pets remain unadopted for extended periods, which can lead to
+Animal shelters across the globe face a significant challenge in ensuring that the pets they care for find permanent, loving homes. Despite the efforts of shelter staff and volunteers, many pets remain unadopted for extended periods, which can lead to overcrowding and strain on shelter resources. This situation not only affects the well-being of the animals but also the operational efficiency of the shelters. Understanding and predicting the factors that influence pet adoption can greatly enhance the adoption process, ensuring that more pets find their forever homes faster.
 
-overcrowding and strain on shelter resources. This situation not only affects the well-
-being of the animals but also the operational efficiency of the shelters. Understanding
+The problem we aim to solve is to develop a predictive model that assesses the likelihood of pets getting adopted from shelters. By analyzing various attributes of the pets, such as species, age, sex, color, and health status, we can identify patterns and factors that significantly impact adoption rates. This model will help shelters optimize their resources and strategies by highlighting which pets are less likely to be adopted and may need additional support or visibility. Furthermore, it can assist in tailoring adoption campaigns, improving matchmaking between pets and potential adopters, and ultimately increasing the adoption rates.
 
-and predicting the factors that influence pet adoption can greatly enhance the adoption
-process, ensuring that more pets find their forever homes faster.
-The problem we aim to solve is to develop a predictive model that assesses the
-likelihood of pets getting adopted from shelters. By analyzing various attributes of the
-pets, such as species, age, sex, color, and health status, we can identify patterns and
-factors that significantly impact adoption rates. This model will help shelters optimize
-their resources and strategies by highlighting which pets are less likely to be adopted
-and may need additional support or visibility. Furthermore, it can assist in tailoring
-adoption campaigns, improving matchmaking between pets and potential adopters, and
-ultimately increasing the adoption rates.
 Description of the Source Data Set and Prediction Goal
 
 Source Data Set
-We will use the "Animal Shelter Intakes and Outcomes" dataset, which comprises
-detailed records of approximately 27,000 animals that have passed through a shelter
-system. Each entry in the dataset represents an individual animal, providing
-comprehensive information about its journey through the shelter. The dataset includes
-information about each animalʼs species, DOB, sex, color, health status, intake date, and
-outcome.
+
+We will use the "Animal Shelter Intakes and Outcomes" dataset, which comprises detailed records of approximately 27,000 animals that have passed through a shelter system. Each entry in the dataset represents an individual animal, providing comprehensive information about its journey through the shelter. The dataset includes information about each animalʼs species, DOB, sex, color, health status, intake date, and outcome.
+
 Link to the dataset
+https://data.longbeach.gov/explore/dataset/animal-shelter-intakes-and-outcomes/export/?flg=en-us&disjunctive.animal_type&disjunctive.primary_color&disjunctive.sex&disjunctive.intake_cond&disjunctive.intake_type&disjunctive.reason&disjunctive.outcome_type&disjunctive.outcome_subtype&disjunctive.intake_is_dead&disjunctive.outcome_is_dead
 
 Prediction Goal
 
-6/5/24, 11:14 PM SoCalSolutions Update
-
-localhost:8888/lab/tree/Desktop/SoCalSolutions Update.ipynb? 1/7
-
-We aim to build a system to predict the likelihood of a pet being adopted from the
-shelter. The target variable will be Outcome Type , where we will focus on outcomes
-indicating adoption. The predictors we plan to use include species, age, sex, color,
-health status, and intake conditions.
+We aim to build a system to predict the likelihood of a pet being adopted from the shelter. The target variable will be Outcome Type , where we will focus on outcomes indicating adoption. The predictors we plan to use include species, age, sex, color, health status, and intake conditions.
 
 Preliminary Work on Data Preparation
-Data Preparation The initial steps for data preparation include:
-Loading the dataset Handling missing values Encoding categorical variables Creating
-new features if necessary (e.g., age at intake)
+
+Data Preparation The initial steps for data preparation include: 
+Loading the dataset Handling missing values Encoding categorical variables creating new features if necessary (e.g., age at intake)
 
 Data Preparation
+
 The initial steps for data preparation include:
+
 1. Loading the dataset
 2. Handling missing values
 3. Encoding categorical variables
 4. Creating new features if necessary (e.g., age at intake)
-import pandas as pd
-from sklearn.preprocessing import LabelEncoder, StandardScaler, OrdinalEncod
-from sklearn.linear_model import LogisticRegression
-from sklearn.model_selection import train_test_split
-from sklearn.metrics import accuracy_score, confusion_matrix
-import seaborn as sns
-import matplotlib.pyplot as plt
-# Load the dataset
-url = "https://data.longbeach.gov/api/explore/v2.1/catalog/datasets/animal-s
-df = pd.read_csv(url)
-# Handle missing values by filling with the most frequent value
-df.fillna(df.mode().iloc[0], inplace=True)
-# Keep a copy of the original DataFrame for visualization
-df_viz = df.copy()
-# Encode categorical variables using OrdinalEncoder
-categorical_features = ['Animal Type', 'Sex', 'Primary Color', 'Secondary Co
-encoder = OrdinalEncoder(handle_unknown='use_encoded_value', unknown_value=-
-df[categorical_features] = encoder.fit_transform(df[categorical_features].as
-# Create new features
-df['DOB'] = pd.to_datetime(df['DOB'], errors='coerce')
-df['Intake Date'] = pd.to_datetime(df['Intake Date'], errors='coerce')
-df['Age at Intake'] = (df['Intake Date'] - df['DOB']).dt.days / 365.25
-In [9]:
-6/5/24, 11:14 PM SoCalSolutions Update
+   
+Code:
+    import pandas as pd
+    from sklearn.preprocessing import LabelEncoder, StandardScaler, OrdinalEncod
+    from sklearn.linear_model import LogisticRegression
+    from sklearn.model_selection import train_test_split
+    from sklearn.metrics import accuracy_score, confusion_matrix
+    import seaborn as sns
+    import matplotlib.pyplot as plt
+    # Load the dataset
+    url = "https://data.longbeach.gov/api/explore/v2.1/catalog/datasets/animal-s
+    df = pd.read_csv(url)
+    # Handle missing values by filling with the most frequent value
+    df.fillna(df.mode().iloc[0], inplace=True)
+    # Keep a copy of the original DataFrame for visualization
+    df_viz = df.copy()
+    # Encode categorical variables using OrdinalEncoder
+    categorical_features = ['Animal Type', 'Sex', 'Primary Color', 'Secondary Co
+    encoder = OrdinalEncoder(handle_unknown='use_encoded_value', unknown_value=-
+    df[categorical_features] = encoder.fit_transform(df[categorical_features].as
+    # Create new features
+    df['DOB'] = pd.to_datetime(df['DOB'], errors='coerce')
+    df['Intake Date'] = pd.to_datetime(df['Intake Date'], errors='coerce')
+    df['Age at Intake'] = (df['Intake Date'] - df['DOB']).dt.days / 365.25
 
-localhost:8888/lab/tree/Desktop/SoCalSolutions Update.ipynb? 2/7
 
 Preliminary Work on Data Exploration and Visualization
 
