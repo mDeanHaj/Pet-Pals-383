@@ -35,36 +35,16 @@ The initial steps for data preparation include:
 3. Encoding categorical variables
 4. Creating new features if necessary (e.g., age at intake)
    
-# Preliminary Work on Data Exploration and Visualization
+Preliminary Work on Data Exploration and Visualization
 
-Data Exploration and Visualization
+# Data Exploration and Visualization
 Some initial data exploration to understand the dataset better:
 
-# Fill missing Age at Intake values with the mean age
-
-# Create new features for the visualization DataFrame
-
-# Distribution of animal types
-
-# Distribution of intake conditions
-
-# Relationship between age at intake and outcome type
-
-Preliminary Work on Machine Learning
+(pic)
 
 We will split the data into training and testing sets and build an initial model to predict
 the adoption likelihood.
 
-# Define features and target
-
-# Split the data
-
-# Scale the features
-
-# Train a logistic regression model on the scaled data
-
-# Make predictions on the scaled test data
-
-# Evaluate the model
+(Pic)
 
 Accuracy: 0.2859221535103674
