@@ -37,101 +37,36 @@ The initial steps for data preparation include:
 3. Encoding categorical variables
 4. Creating new features if necessary (e.g., age at intake)
    
-Code:
-    import pandas as pd
-    from sklearn.preprocessing import LabelEncoder, StandardScaler, OrdinalEncod
-    from sklearn.linear_model import LogisticRegression
-    from sklearn.model_selection import train_test_split
-    from sklearn.metrics import accuracy_score, confusion_matrix
-    import seaborn as sns
-    import matplotlib.pyplot as plt
-    # Load the dataset
-    url = "https://data.longbeach.gov/api/explore/v2.1/catalog/datasets/animal-s
-    df = pd.read_csv(url)
-    # Handle missing values by filling with the most frequent value
-    df.fillna(df.mode().iloc[0], inplace=True)
-    # Keep a copy of the original DataFrame for visualization
-    df_viz = df.copy()
-    # Encode categorical variables using OrdinalEncoder
-    categorical_features = ['Animal Type', 'Sex', 'Primary Color', 'Secondary Co
-    encoder = OrdinalEncoder(handle_unknown='use_encoded_value', unknown_value=-
-    df[categorical_features] = encoder.fit_transform(df[categorical_features].as
-    # Create new features
-    df['DOB'] = pd.to_datetime(df['DOB'], errors='coerce')
-    df['Intake Date'] = pd.to_datetime(df['Intake Date'], errors='coerce')
-    df['Age at Intake'] = (df['Intake Date'] - df['DOB']).dt.days / 365.25
-
-
 Preliminary Work on Data Exploration and Visualization
 
 Data Exploration and Visualization
 Some initial data exploration to understand the dataset better:
+
 # Fill missing Age at Intake values with the mean age
-df['Age at Intake'].fillna(df['Age at Intake'].mean(), inplace=True)
+
 # Create new features for the visualization DataFrame
-df_viz['DOB'] = pd.to_datetime(df_viz['DOB'], errors='coerce')
-df_viz['Intake Date'] = pd.to_datetime(df_viz['Intake Date'], errors='coerce
-df_viz['Age at Intake'] = (df_viz['Intake Date'] - df_viz['DOB']).dt.days /
-df_viz['Age at Intake'].fillna(df_viz['Age at Intake'].mean(), inplace=True)
+
 # Distribution of animal types
-sns.countplot(data=df_viz, x='Animal Type')
-plt.title('Distribution of Animal Types')
-plt.xticks(rotation=90)
-plt.show()
+
 # Distribution of intake conditions
-sns.countplot(data=df_viz, x='Intake Condition')
-plt.title('Distribution of Intake Conditions')
-plt.xticks(rotation=90)
-plt.show()
+
 # Relationship between age at intake and outcome type
-sns.boxplot(data=df_viz, x='Outcome Type', y='Age at Intake')
-plt.title('Age at Intake vs Outcome Type')
-plt.xticks(rotation=90)
-plt.show()
-
-In [12]:
-6/5/24, 11:14 PM SoCalSolutions Update
-
-localhost:8888/lab/tree/Desktop/SoCalSolutions Update.ipynb? 3/7
-
-6/5/24, 11:14 PM SoCalSolutions Update
-
-localhost:8888/lab/tree/Desktop/SoCalSolutions Update.ipynb? 4/7
-
-6/5/24, 11:14 PM SoCalSolutions Update
-
-localhost:8888/lab/tree/Desktop/SoCalSolutions Update.ipynb? 5/7
 
 Preliminary Work on Machine Learning
 
-Preliminary Work on Machine Learning
 We will split the data into training and testing sets and build an initial model to predict
 the adoption likelihood.
+
 # Define features and target
-features = ['Animal Type', 'Sex', 'Primary Color', 'Secondary Color', 'Intak
-target = 'Outcome Type'
-X = df[features]
-y = df[target]
-# Split the data In [15]:
 
+# Split the data
 
-
-
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, ran
 # Scale the features
-scaler = StandardScaler()
-X_train_scaled = scaler.fit_transform(X_train)
-X_test_scaled = scaler.transform(X_test)
+
 # Train a logistic regression model on the scaled data
-model = LogisticRegression(max_iter=5000)
-model.fit(X_train_scaled, y_train)
+
 # Make predictions on the scaled test data
-y_pred = model.predict(X_test_scaled)
+
 # Evaluate the model
-accuracy = accuracy_score(y_test, y_pred)
-cm = confusion_matrix(y_test, y_pred)
-print(f'Accuracy: {accuracy}')
-sns.heatmap(cm, annot=True, fmt='d', cmap='Blues')
-plt.title('Confusion Matrix')
-plt.show()
+
 Accuracy: 0.2859221535103674
