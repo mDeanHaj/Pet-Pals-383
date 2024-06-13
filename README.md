@@ -36,11 +36,7 @@ The initial steps for data preparation include:
 # Data Exploration and Visualization
 Some initial data exploration to understand the dataset better:
 
-(pic)
-
 We will split the data into training and testing sets and build an initial model to predict
 the adoption likelihood.
 
-(Pic)
-
-Accuracy: 0.2859221535103674
+Data Accuracy: 0.2859221535103674
